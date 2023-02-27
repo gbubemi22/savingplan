@@ -11,3 +11,46 @@ export type RegisterDataType = {
 
 
 
+export type PlanDataType = {
+	userId?: number;
+	title: string;
+	people_to_save_with:Date;
+	target:string;
+	auto_save:string;
+	saving_frequency:string;
+	start:Date;
+	amount_to_save:number;
+	when_to_start_saving:Date;
+	period_of_saving:Date;
+	start_date:Date;
+	end_date:Date;
+	relation_type:string;
+
+
+}
+
+
+export type FnResponseDataType = {
+	status: boolean;
+	message: string;
+	data?: any;
+};
+
+export type InviteDataType = {
+	data:InviteObjectType[],
+	planId?: number;
+	userId?: number;
+	id?: number;
+
+}
+
+export type InviteObjectType = {
+	emails: string;
+	
+
+}
+
+export type InviteResponseDataType = {
+	yes:string;
+	no:string;
+}
