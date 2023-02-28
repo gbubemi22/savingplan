@@ -35,7 +35,17 @@ User Registration and Login: Users can create an account on the App
 
 User Can Create a Saving Plan
 
-add up to 5 friends 
+User add up to 5 friends 
+
+User can invite Buddy to save with them 
+
+Friends can accept invite
+
+Friends can reget invite
+
+
+
+
 
 Security:
 The API will implement security measures to protect user data and prevent any unauthorized access. The following security measures will be implemented:
