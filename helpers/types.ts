@@ -54,3 +54,18 @@ export type InviteResponseDataType = {
 	yes:string;
 	no:string;
 }
+export type AuthPayloadDataType = {
+	id: number;
+	names: string;
+	phone: string;
+	email: string;
+	status?: string;
+	type?: string;
+};
+
+export type TokenDataType = {
+	type: 'token' ;
+	token: string;
+	user?: AuthPayloadDataType;
+	admin?: AuthPayloadDataType;
+};

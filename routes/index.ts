@@ -23,7 +23,7 @@ routes.post('/register',register)
 routes.post('/login',login)
 
 routes.post('/invite',Invite.createInvite)
-routes.patch('/invite',Invite.acceptInvite)
+routes.patch('/invite/:id',Invite.acceptInvite)
 
 
 routes.post('/plan',createPlan)

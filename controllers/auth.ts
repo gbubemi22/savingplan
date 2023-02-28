@@ -9,7 +9,8 @@ import bcrypt from 'bcryptjs';
 import config from '../config/configSetup';
 import DB from './db';
 import { Op } from 'sequelize';
-import { RegisterDataType } from '../helpers/types';
+import { AuthPayloadDataType, RegisterDataType, TokenDataType } from '../helpers/types';
+import { successResponse } from '../helpers/utility';
 
 
 
@@ -68,8 +69,22 @@ export const login = async (req: Request, res: Response) => {
 			
 			throw new Error (`Incorrect Credentials`);
 		}
+		// validate
+		let payload: AuthPayloadDataType = {
+			id: user.id,
+			email,
+			names: user.names,
+			phone: user.phone,
+			//role: user.role,
+			
+		};
+		const token: string = jwt.sign(payload, config.JWTSECRET);
+		const data: TokenDataType = { type: 'token', token, user: payload };
+			return successResponse(res, 'Login successfull', data);
 	} catch (error) {
 		console.log(error);
 		throw new Error( `An error occurred - ${error}`);
 	}
 };
+
+
