@@ -42,6 +42,8 @@ const createPlan = async (req: Request, res: Response) => {
      if(!status) {
           return errorResponse(res, message, data);
      }
+     if(data.people_to_save_with > 5)
+     throw new Error('can not add more than 5 people')
     } catch (error) {
      console.error(error);
      return errorResponse(res, 'Error', error);

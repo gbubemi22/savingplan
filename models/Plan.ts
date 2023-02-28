@@ -10,12 +10,12 @@ export default function (sequelize: any, Sequelize: any) {
                 type: DataTypes.STRING(),
                 allowNull: false,
             },
-            people_to_save_with: {
+            people_to_save_with: [{
                 type: DataTypes.NUMBER(),
                 max: 5,
                 min: 0,
                 allowNull: false,
-            },
+            }],
             target: {
                 type: DataTypes.ENUM('YES', 'NO'),
             },

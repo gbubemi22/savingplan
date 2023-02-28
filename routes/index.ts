@@ -1,5 +1,5 @@
 import { Router, Response, Request } from 'express';
-
+import { StatusCodes } from 'http-status-codes';
 
 import{ register, login} from '../controllers/auth';
 //import  Plan  from '../controllers/plan';
@@ -15,15 +15,18 @@ API CALL START
 
 // INDEX ROUTE TO SHOW API IS WORKING FINE
 routes.get('/', (req, res) => {
-	return res.status(200).send('API Working');
+	return res.status(StatusCodes.OK).send('API Working');
 });
 
-
+// Create and login
 routes.post('/register',register)
 routes.post('/login',login)
 
+// Invite
 routes.post('/invite',Invite.createInvite)
-routes.patch('/invite/:id',Invite.acceptInvite)
+routes.post('/invite/accept/:id',Invite.acceptInvite)
+routes.post('/invite/reject/:id',Invite.rejectInvite)
+routes.delete('/invite/:id',Invite.deleteInvite)
 
 
 routes.post('/plan',createPlan)

@@ -14,7 +14,10 @@ const createInvite = async (req: Request, res: Response) => {
          return errorResponse(res, 'Validation failed', errors.array());
      }
 
-     const { data, planId } = req.body;
+     const { data, planId , emails } = req.body;
+     if(!emails) {
+          throw new Error(`User with email not found on our records`)   
+        }
      const invite = new Invite();
 
      const insertData: InviteDataType = {
@@ -43,7 +46,8 @@ const acceptInvite = async (req: Request, res: Response) => {
 		return errorResponse(res, 'Validation Error', errors.array());
 	}
      const { id } = req.params;
-	const { data } = req.body;
+	const { data  } = req.body;
+     
      const invite = new Invite();
      
      try {
@@ -56,10 +60,51 @@ const acceptInvite = async (req: Request, res: Response) => {
      }
 }
 
+const rejectInvite = async (req: Request, res: Response) => {
+     const errors = validationResult(req);
+     if (!errors.isEmpty()) {
+		return errorResponse(res, 'Validation Error', errors.array());
+	} 
+
+     const { id } = req.params;
+	const { data  } = req.body;
+     
+     const invite = new Invite();
+
+     try {
+          const { status, message }: FnResponseDataType = await invite.rejectInite({ id: Number(id), data });
+     if (!status) return errorResponse(res, message);
+     return successResponse(res, message);
+     } catch (error) {
+          console.log(error);
+          return errorResponse(res, `An error occurred - ${error}`); 
+     }
+}
+
+const deleteInvite = async (req: Request, res: Response) => {
+     const errors = validationResult(req);
+     if (!errors.isEmpty()) {
+          return errorResponse(res, 'Validation Error', errors.array());
+     }
+     const { id } = req.params;
+     const invite = new Invite();
+     try {
+          const { status, message }: FnResponseDataType = await invite.deleteInviteByCreator(Number(id));
+		if (!status) return errorResponse(res, message);
+		return successResponse(res, message);   
+     } catch (error) {
+          console.log(error);
+		return errorResponse(res, `An error occurred - ${error}`);
+	} 
+     
+}
+
 
 export default {
      createInvite,
      acceptInvite,
+     rejectInvite,
+     deleteInvite
 }
 
 
